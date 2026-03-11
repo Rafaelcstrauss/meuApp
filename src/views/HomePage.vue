@@ -2,14 +2,14 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Blank</ion-title>
+        <ion-title>teste</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
+          <ion-title size="large">teste</ion-title>
         </ion-toolbar>
       </ion-header>
 
@@ -17,12 +17,30 @@
         <strong>Ready to create an app?</strong>
         <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
       </div>
+
+      <IonInput v-model="nome"></IonInput>
+        <div>O nome é {{ nome }}</div>
+      
+        <IonButton @click="DirecionarSite">Tarefas</IonButton>
+
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonButton } from '@ionic/vue';
+import { ref } from 'vue';
+
+const nome = ref("");
+
+import router from '@/router';
+
+
+function DirecionarSite(){
+  router.push('/Tarefas')
+}
+
+
 </script>
 
 <style scoped>
