@@ -15,24 +15,32 @@
 
             <ion-input v-model="novaTarefa">Digite sua tarefa</ion-input>
             <div>tarefa nova: {{ novaTarefa }} </div>
-            <ion-button @click="Adicionar">Adicionar</ion-button>
 
-            <li v-for="(t, index) in (tare)" :key="index">
-                {{ t }} <ion-button @click="Remover(index)">Remover</ion-button>
+            <ion-button fill="solid" expand="block" color="primary" @click="Adicionar">
+                <ion-icon slot="start" :icon="addOutline"></ion-icon>
+                Adicionar
+            </ion-button>
+
+            <li v-for="(t, index) in (tare)" :key="index" :style="cor(index)">
+                {{index + 1 }} - {{ t }}
+
+                <ion-button fill="clear" color="danger" @click="Remover(index)">
+                    <ion-icon :icon="trashOutline"></ion-icon>
+                    Remover
+                </ion-button> 
             </li>
             
             <div v-if="quantidade === 0 ">Sem bagulho cadastrado</div>
 
+            <ion-button @click="RemoverTudo">Remover tudo</ion-button>
             <ion-button @click="DirecionarSite">Voltar</ion-button>
         </ion-content>
     </ion-page>
-
-
-
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonToolbar, IonHeader, IonTitle, IonContent, IonInput, IonButton } from '@ionic/vue';
+import { IonPage, IonToolbar, IonHeader, IonTitle, IonContent, IonInput, IonButton, IonIcon } from '@ionic/vue';
+import { addOutline, trashOutline } from 'ionicons/icons';
 import { ref } from 'vue';
 
 const tare = ref<string[]>( [] )
@@ -52,15 +60,17 @@ const Remover = (index:number) =>{
     quantidade.value--;
 }
 
-import router from '@/router';
+const RemoverTudo = () =>{
+    tare.value.splice(0 , tare.value.length)
+}
 
+const cor = (index: number) => {
+    return { color: index % 2 === 0 ? 'blue' : 'red' };
+}
+
+import router from '@/router';
 
 function DirecionarSite(){
   router.push('/Home')
 }
 </script>
-
-
-<style scoped>
-
-</style>
