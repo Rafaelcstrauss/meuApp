@@ -30,16 +30,19 @@
                 Adicionar
             </ion-button>
 
-            <li v-for="(t, index) in (tare)" :key="index" :style="cor(index)">
-                {{index + 1 }} - {{ t }}
+            <ion-list>
+                <ion-item v-for="(t, i) in tare" :key="i">
+                    <ion-icon slot="start" :icon="checkmarkCircleOutline" />
+                    <ion-label>{{ t }}</ion-label>
+                    <ion-button slot="end" fill="clear" color="danger" @click="Remover(i)">
+                        <ion-icon :icon="trashOutline" />
+                    </ion-button>
+                </ion-item>
+            </ion-list>
 
-                <ion-button fill="clear" color="danger" @click="Remover(index)">
-                    <ion-icon :icon="trashOutline"></ion-icon>
-                    Remover
-                </ion-button> 
-            </li>
-            
-            <div v-if="quantidade === 0 ">Sem bagulho cadastrado</div>
+            <p v-if="!tare.length" class="ion-text-center ion-padding">
+                Nenhuma tarefa cadastrada.
+            </p>
 
             <ion-button @click="RemoverTudo">Remover tudo</ion-button>
             <ion-button @click="DirecionarSite">Voltar</ion-button>
@@ -48,8 +51,8 @@
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonToolbar, IonHeader, IonTitle, IonContent, IonInput, IonButton, IonIcon } from '@ionic/vue';
-import { addOutline, trashOutline } from 'ionicons/icons';
+import { IonPage, IonToolbar, IonHeader, IonTitle, IonContent, IonInput, IonButton, IonIcon, IonList, IonItem, IonLabel } from '@ionic/vue';
+import { addOutline, trashOutline, checkmarkCircleOutline } from 'ionicons/icons';
 import { ref, computed } from 'vue';
 
 const tare = ref<string[]>( [] )
@@ -75,9 +78,9 @@ const RemoverTudo = () =>{
     tare.value.splice(0 , tare.value.length)
 }
 
-const cor = (index: number) => {
-    return { color: index % 2 === 0 ? 'blue' : 'red' };
-}
+
+
+
 
 import router from '@/router';
 
