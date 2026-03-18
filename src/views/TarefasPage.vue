@@ -13,7 +13,16 @@
                 </ion-toolbar>
             </ion-header>
 
-            <ion-input v-model="novaTarefa">Digite sua tarefa</ion-input>
+            <ion-input
+              label="Nome da tarefa"
+              label-placement="floating"
+              v-model="novaTarefa"
+              :clear-input="true"
+              placeholder="Ex: Estudar Vue.js"
+              :error-text="erroTarefa"
+              :class="{'ion-invalid ion-touched': erroTarefa}">
+            </ion-input>
+
             <div>tarefa nova: {{ novaTarefa }} </div>
 
             <ion-button fill="solid" expand="block" color="primary" @click="Adicionar">
@@ -41,11 +50,13 @@
 <script setup lang="ts">
 import { IonPage, IonToolbar, IonHeader, IonTitle, IonContent, IonInput, IonButton, IonIcon } from '@ionic/vue';
 import { addOutline, trashOutline } from 'ionicons/icons';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const tare = ref<string[]>( [] )
 const novaTarefa = ref('')
 const quantidade = ref(0);
+
+const erroTarefa = computed(() => !novaTarefa.value.trim() ? "Campo obrigatório" : "")
 
 const Adicionar = () => {
     if(novaTarefa.value.trim() === ""){
@@ -74,3 +85,6 @@ function DirecionarSite(){
   router.push('/Home')
 }
 </script>
+
+<style scoped>
+</style>
