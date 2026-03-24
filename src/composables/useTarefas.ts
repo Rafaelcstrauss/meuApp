@@ -34,8 +34,18 @@ export function useTarefas() {
         const t = tarefas.value.find(t => t.id === id)
         if (t) t.feita = !t.feita
     }
+
+    watch(totalPendentes, (valor) => {
+        if (valor === 0 && tarefas.value.length > 0) {
+            // Exibir IonAlert, IonToast ou alert() simples
+            alert('�� Parabéns! Todas as tarefas foram concluídas!')
+        }
+    })
+
     return {
         tarefas, busca, filtroAtivo, filtradas, totalPendentes,
         adicionar, remover, concluir
     }
+
+
 }
